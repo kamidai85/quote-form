@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>見積もり情報フォーム</title>
+  <style>
+    body {
+      font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .form-header {
+      text-align: center;
+      color: #06c755;
+      margin-bottom: 30px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .required:after {
+      content: " *";
+      color: red;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    textarea {
+      height: 120px;
+    }
+    .submit-btn {
+      background-color: #06c755;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+    }
+    .submit-btn:hover {
+      background-color: #05a649;
+    }
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+    }
+    .loading-spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #06c755;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 2s linear infinite;
+      margin: 0 auto 10px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-header">
+    <h1>見積もり情報フォーム</h1>
+  </div>
+  
+  <form id="quoteForm" method="GET" action="https://script.google.com/macros/s/AKfycbzuEBOEc5GVOrUOZZG0-0gvbe9NcxJwcekXNTlMNMRNYfNddpqsYCov6VTMVVvbPrq5/exec">
+    <div class="form-group">
+      <label for="customerName" class="required">お客様氏名</label>
+      <input type="text" id="customerName" name="customerName" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="quoteNumber" class="required">見積番号</label>
+      <input type="text" id="quoteNumber" name="quoteNumber" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="quoteDate" class="required">見積もり作成日</label>
+      <input type="date" id="quoteDate" name="quoteDate" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="amount" class="required">金額</label>
+      <input type="number" id="amount" name="amount" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="subject" class="required">件名</label>
+      <input type="text" id="subject" name="subject" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="paymentTerms">支払い条件</label>
+      <select id="paymentTerms" name="paymentTerms">
+        <option value="">選択してください</option>
+        <option value="現金一括">現金一括</option>
+        <option value="分割払い">分割払い</option>
+        <option value="契約時支払い">契約時支払い</option>
+        <option value="完了後支払い">完了後支払い</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="constructionSite" class="required">工事場所</label>
+      <input type="text" id="constructionSite" name="constructionSite" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="content" class="required">内容</label>
+      <textarea id="content" name="content" required></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="remarks">備考</label>
+      <textarea id="remarks" name="remarks"></textarea>
+    </div>
+    
+    <!-- ユーザーIDは必要に応じて非表示で送信 -->
+    <input type="hidden" id="userId" name="userId" value="">
+    
+    <!-- リダイレクト先を指定する場合 -->
+    <input type="hidden" name="redirect" value="">
+    
+    <div class="form-group">
+      <button type="submit" class="submit-btn">送信する</button>
+    </div>
+  </form>
+  
+  <div id="loadingIndicator" class="loading">
+    <div class="loading-spinner"></div>
+    <p>データを処理中です。PDFを生成しています...</p>
+  </div>
+
+  <script>
+    // フォーム送信時の処理
+    document.getElementById('quoteForm').addEventListener('submit', function() {
+      // ローディングインジケーターを表示
+      document.getElementById('loadingIndicator').style.display = 'block';
+      // フォームを非表示
+      this.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
